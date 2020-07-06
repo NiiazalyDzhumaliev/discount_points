@@ -7,6 +7,17 @@ class UsersController < ApplicationController
     @user = User.find(current_user.id)
   end
   
+  def update
+    @user = User.find(params[:id])
+      if @user.update_attributes(params[:point])
+        flash[:success] = "Object was successfully updated"
+        redirect_to @user
+      else
+        flash[:error] = "Something went wrong"
+        render 'edit'
+      end
+  end
+  
 
   def create
     @user = User.create(user_params)
